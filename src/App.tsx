@@ -1,6 +1,7 @@
 import { Table, TableCell, TableRow } from '@mui/material';
 import { useEffect, useState } from 'react';
 import "./App.css"
+import image from "./bg.png"
 
 
 function App() {
@@ -63,12 +64,12 @@ function App() {
     <div className="App">
       <br />
       <div className='input' style={{ textAlign: 'center' }}>
-        <input type="search" placeholder='Search Movie...' className="inputTagCSS" style={{ cursor: 'pointer', margin:'3.5rem 0' }} value={search.toUpperCase()} onChange={(e) => handleSearch(e.target.value)} />
+        <input type="search" placeholder='Search Movie...' className="inputTagCSS" style={{ cursor: 'pointer', margin: '3.5rem 0' }} value={search.toUpperCase()} onChange={(e) => handleSearch(e.target.value)} />
       </div>
       <br />
       {
         search.length > 0 ? (data.Title ?
-          <div style={{ display: 'flex', justifyContent: 'space-around', margin: '0 3rem',alignItems:'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-around', margin: '0 3rem', alignItems: 'center' }}>
             <div style={{ textAlign: 'left' }}>
               <pre style={{ fontFamily: 'Times New Roman', borderBottom: 0, fontSize: '2rem', margin: "0.5rem 0" }} >
                 {data.Title}
@@ -78,13 +79,13 @@ function App() {
               </pre>
               <img src={data.Poster} alt="" style={{ textAlign: 'center', margin: '0.5rem 0', borderRadius: '12px', height: '25rem', width: '20rem' }} />
               {data.Ratings.length > 0 && (data.Ratings[0].Value) !== "N/A" &&
-              <pre style={{ fontFamily: 'Times New Roman', borderBottom: 0, fontSize: '1.6rem', margin: "0.5rem 0", fontWeight: 'bold' }} >
-                &#x2B50; {data.Ratings.length > 0 && (data.Ratings[0].Value).split("/")[0]} &nbsp;
-                <span style={{ fontFamily: 'Times New Roman', borderBottom: 0, fontSize: '1.4rem', margin: "0.5rem 0", fontWeight: '1', color: 'gray' }} >
-                  /{data.Ratings.length > 0 && (data.Ratings[0].Value).split("/")[1]} |&nbsp;
-                  {Math.round(parseInt(data.imdbVotes))}K
-                </span>
-              </pre>}
+                <pre style={{ fontFamily: 'Times New Roman', borderBottom: 0, fontSize: '1.6rem', margin: "0.5rem 0", fontWeight: 'bold' }} >
+                  &#x2B50; {data.Ratings.length > 0 && (data.Ratings[0].Value).split("/")[0]} &nbsp;
+                  <span style={{ fontFamily: 'Times New Roman', borderBottom: 0, fontSize: '1.4rem', margin: "0.5rem 0", fontWeight: '1', color: 'gray' }} >
+                    /{data.Ratings.length > 0 && (data.Ratings[0].Value).split("/")[1]} |&nbsp;
+                    {Math.round(parseInt(data.imdbVotes))}K
+                  </span>
+                </pre>}
             </div>
             <div>
               <Table style={{ width: '80%', fontSize: '5rem', marginLeft: '5rem' }}>
@@ -139,7 +140,10 @@ function App() {
               </Table>
             </div>
           </div> : <h2 style={{ textAlign: 'center' }}>{data.Error}</h2>) :
-          <h2 style={{ textAlign: 'center' }}>To search for a movie, please enter its name in the search field.</h2>
+          <div style={{ textAlign: 'center' }}>
+          <img src={image} alt="" style={{ textAlign: 'center', margin: '0.5rem 0', borderRadius: '12px', height: '25rem', width: '20rem' }} />
+          <h2 >To search for a movie, please enter its name in the search field.</h2>
+          </div>
       }
     </div>
   );
