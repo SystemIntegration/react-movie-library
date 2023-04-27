@@ -1,23 +1,18 @@
-.inputTagCSS {
-  height: 4rem;
-  width: 26rem;
-  padding: 3px 10px;
-  font-size: 20px;
-  border-radius: 8px;
-  border: 1px solid white;
-  box-shadow: none;
-  outline: none;
-  transition: border-color 0.3s ease;
+::-webkit-scrollbar{
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-track{
+  background: transparent;
+}
+::-webkit-scrollbar-thumb{
+  border-radius: 30px;
+  background: rgb(219, 219, 219);
 }
 
-.inputTagCSS:focus {
-  border-color: none;
-}
-
-* {
+.App{
   font-family: 'Times New Roman', Times, serif;
-  background: #141414;
-  color: antiquewhite;
+  color: black;
 }
 
 .mainDiv {
