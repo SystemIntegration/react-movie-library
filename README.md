@@ -23,7 +23,7 @@
   - OMDb API - For movie database
 
 ## Getting Started
-  - Clone the repository: <code>git clone git@github.com:systemintegration/react-movie-library.git</code>
+  - Clone the repository: <code>git@github.com:systemintegration/react-movie-library.git</code>
   - Install dependencies: <code>npm install</code>
   - Start the development server: <code>npm start</code>
 
@@ -45,4 +45,4 @@ In the project directory, you can run:
    ![resultPage.png](./resultPage.png)
 
 ## Demo
-   - You can try out the application at <a href="https://systemintegration.github.io/react-movie-library">https://systemintegration.github.io/react-movie-library</a>
+   - You can try out the application at <a href="https://systemintegration.github.io/react-movie-library/">https://systemintegration.github.io/react-movie-library/</a>
