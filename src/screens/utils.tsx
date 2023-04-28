@@ -39,30 +39,9 @@ export const string: any = {
 }
 
 export function Header() {
-    const [searchName, setSearchName] = useState("");
-    const [searchingSeq, setSearchingSeq] = useState([]);
-
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=e13ceb6565b27a00321702a3c013911a&query=${searchName}`);
-            const data = await response.json();
-            setSearchingSeq(data.results)
-            // console.log('data',searchingSeq);
-        }
-        fetchData();
-    }, [searchName]);
-
-    const handleInputChange = (event: any) => {
-        setSearchName(event.target.value)
-    };
-
-    let newOption = [];
-    newOption = searchingSeq.map((data: any) => { return ({ label: data.title }) })
-
-
     return (
-        <AppBar position="static" style={{ background: '#032541', height: '5.5rem' }}>
-            <Container maxWidth="xl" style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <AppBar position="static" style={{ background: '#032541'}}>
+            <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <img src={logo} alt="logo" style={{ marginRight: '1rem' }} />
                     <Typography
@@ -83,26 +62,6 @@ export function Header() {
                         BMV MDb
                     </Typography>
                 </Toolbar>
-                <Autocomplete
-                    loading
-                    options={newOption}
-                    getOptionLabel={(option) => option.label}
-                    clearOnEscape={false}
-                    clearOnBlur={false}
-                    className="autoComplete"
-                    style={{ marginLeft: '1rem' }}
-                    renderInput={(params) => (
-                        <TextField
-                            label="Search.."
-                            {...params}
-                            value={searchName}
-                            onChange={handleInputChange}
-                            variant="outlined"
-                        >
-                        </TextField>
-                    )}
-                />
-
             </Container>
         </AppBar>
     );
@@ -147,7 +106,7 @@ export function MainResults(props: any) {
             const response = await fetch(`http://www.omdbapi.com/?t=${props.name}&apikey=da47b56d`);
             const data = await response.json();
             setData(data)
-            console.log('data', data);
+            // console.log('data', data);
         }
         fetchData();
     }, []);
@@ -246,42 +205,24 @@ export function MainResults(props: any) {
 }
 
 export function TrendingPage(props:any) {
-  const [value, setValue] = useState(false)
-
   interface movieData { }
-
-
   const [data, setData] = useState<movieData[]>([]);
 
   // Method for get data from searched data
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`https://api.themoviedb.org/3/${props.value}/popular?api_key=e13ceb6565b27a00321702a3c013911a&language=${value == true ? 'hi' : 'en-US'}&page=1`);
+      const response = await fetch(`https://api.themoviedb.org/3/${props.value}/popular?api_key=e13ceb6565b27a00321702a3c013911a&language=hi&page=1`);
       const data = await response.json();
       setData(data.results)
       // console.log('Datas', data);
     }
     fetchData();
-  }, [value]);
+  }, []);
 
-  //method for get value for change Hindi -> English or English -> Hindi
-  const getValue = () => {
-    if (value === false) {
-      setValue(true)
-    } else {
-      setValue(false)
-    }
-  }
   return (
     <div style={{ margin: '0 1.5rem' }}>
       <div className='header'>
         <h2>Trending {props.value}
-          <FormControlLabel style={{ marginLeft: '2rem' }}
-            control={
-              <Switch defaultChecked color="secondary" onClick={() => { getValue() }} />
-            }
-            label={value === true ? "Hindi" : "English"}
-          />
         </h2>
       </div>
       <div className='Scroll' style={{ display: 'flex', overflowX: 'auto' }}>

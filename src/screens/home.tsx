@@ -1,12 +1,14 @@
 import React from 'react'
 import { Header, TrendingPage } from './utils';
+import SearchBar from './searchBar';
 
 function Home() {
   return (
     <>
-    <Header />
-     <TrendingPage value="movie" />
-     <TrendingPage value="tv" />
+      <Header />
+      <SearchBar />
+      <TrendingPage value="movie" />
+      <TrendingPage value="tv" />
     </>
   )
 }
