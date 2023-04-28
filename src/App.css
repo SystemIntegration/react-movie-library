@@ -46,15 +46,41 @@ pre {
 span {
   border-bottom: 0;
   margin: 0.5rem 0;
-  color: gray;
+  color: white;
   font-size: 1.4rem;
   font-weight: 1;
 }
 
-.tableHead {
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: bold;
-  border-bottom: 0;
-  font-size: 1.4rem;
-  color: gray;
+.showcase {
+  width: 100%;
+  height: 40rem;
+  position: relative;
+  color: white;
+  text-align: center;
 }
+
+.showcase .img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index:99
+}
+
+.showcase .overlay {
+  width: 100%;
+  height: 40rem;
+  background-color: rgba(0, 35, 82, 0.7);
+  position: absolute;
+  margin-top: 0.7rem;
+  top: 0;
+  left: 0;
+  z-index:999
+}
+
+.autoComplete {width: 25%;}
+.autoComplete label {top: -4px; color: white !important;}
+.autoComplete div {height: 45px;}
+.autoComplete fieldset {border-color: aliceblue;}
+.autoComplete input {color: aliceblue;}

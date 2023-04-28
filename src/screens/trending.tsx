@@ -16,7 +16,7 @@ function Trending() {
       const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=e13ceb6565b27a00321702a3c013911a&language=${value == true ? 'hi' : 'en-US'}&page=1`);
       const data = await response.json();
       setData(data.results)
-      console.log('Datas', data);
+      // console.log('Datas', data);
     }
     fetchData();
   }, [value]);

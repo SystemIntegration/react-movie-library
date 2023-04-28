@@ -3,8 +3,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import logo from './logo.png'
-import { Table, TableCell, TableRow } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Autocomplete, Table, TableCell, TableRow, TextField } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
 import ErrorImage from './remove.png'
 
 
@@ -21,11 +21,12 @@ export const style: any = {
         fontFamily: 'Times New Roman', fontWeight: 'bold',
         borderBottom: 0,
         fontSize: '1.4rem',
-        color: 'gray',
+        color: 'white',
     },
     tableData: {
         fontFamily: 'Times New Roman', borderBottom: 0,
         fontSize: '1.4rem',
+        color:'white'
     },
 }
 
@@ -40,9 +41,30 @@ export const string: any = {
 }
 
 export function Header() {
+    const [searchName, setSearchName] = useState("");
+    const [searchingSeq, setSearchingSeq] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=e13ceb6565b27a00321702a3c013911a&query=${searchName}`);
+            const data = await response.json();
+            setSearchingSeq(data.results)
+            // console.log('data',searchingSeq);
+        }
+        fetchData();
+    }, [searchName]);
+
+    const handleInputChange = (event: any) => {
+        setSearchName(event.target.value)
+    };
+
+    let newOption = [];
+    newOption = searchingSeq.map((data: any) => { return ({ label: data.title }) })
+
+
     return (
-        <AppBar position="static" style={{ background: '#032541' }}>
-            <Container maxWidth="xl">
+        <AppBar position="static" style={{ background: '#032541', height: '5.5rem' }}>
+            <Container maxWidth="xl" style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Toolbar disableGutters>
                     <img src={logo} alt="logo" style={{ marginRight: '1rem' }} />
                     <Typography
@@ -63,6 +85,26 @@ export function Header() {
                         BMV MDb
                     </Typography>
                 </Toolbar>
+                <Autocomplete
+                    loading
+                    options={newOption}
+                    getOptionLabel={(option) => option.label}
+                    clearOnEscape={false}
+                    clearOnBlur={false}
+                    className="autoComplete"
+                    style={{ marginLeft: '1rem' }}
+                    renderInput={(params) => (
+                        <TextField
+                            label="Search.."
+                            {...params}
+                            value={searchName}
+                            onChange={handleInputChange}
+                            variant="outlined"
+                        >
+                        </TextField>
+                    )}
+                />
+
             </Container>
         </AppBar>
     );
@@ -137,64 +179,70 @@ export function MainResults(props: any) {
 
     return (
         <>
-                <Header />
-            <div className="App">
-                {data.Title ?
-                    <div className='mainDiv'>
-                        <div className='subDivForDataL'>
-                            <pre style={{ fontSize: '2rem' }} >
-                                {data.Title}
-                            </pre>
-                            <pre style={{ fontSize: '1.2rem', color: 'gray' }} >
-                                {data.Year} | {data.Rated} | {data.Runtime == "N/A" ? "N/A" : minToHour(data.Runtime.split(" ")[0])}
-                            </pre>
-                            <img className='img' src={data.Poster} alt="" />
-                            {data.Ratings.length > 0 && (data.Ratings[0].Value) !== "N/A" &&
-                                <pre style={{ fontSize: '1.6rem', fontWeight: 'bold' }} >
-                                    &#x2B50; {data.Ratings.length > 0 && (data.Ratings[0].Value).split("/")[0]} &nbsp;
-                                    <span>
-                                        /{data.Ratings.length > 0 && (data.Ratings[0].Value).split("/")[1]} |&nbsp;
-                                        {Math.round(parseInt(data.imdbVotes))}K
-                                    </span>
-                                </pre>}
-                        </div>
-                        <div>
-                            <Table style={{ width: '80%', fontSize: '5rem', marginLeft: '5rem' }}>
-                                <TableRow>
-                                    <TableCell style={style.tableHead}>{string.Actors}</TableCell>
-                                    <TableCell style={style.tableData}>{data.Actors}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell style={style.tableHead}>{string.Genre}</TableCell>
-                                    <TableCell style={style.tableData}>{data.Genre}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell style={style.tableHead}>{string.Language}</TableCell>
-                                    <TableCell style={style.tableData}>{data.Language}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell style={style.tableHead}>{string.Director}</TableCell>
-                                    <TableCell style={style.tableData}>{data.Director}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell style={style.tableHead}>{string.Description}</TableCell>
-                                    <TableCell style={style.tableData}>{data.Plot}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell style={style.tableHead}>{string.Trailer}</TableCell>
-                                    <TableCell style={style.tableData}>
-                                        <a href={`https://www.youtube.com/results?search_query=${data.Title}+trailer`} target='_blank' style={{ textDecoration: 'none', color: 'black' }}>{data.Title}</a>
-                                    </TableCell>
-                                </TableRow>
-                            </Table>
-                        </div>
-                    </div> :
-                    <div className='subDivForError'>
-                        <img className='img' src={ErrorImage} alt="Error" />
-                        <h2 className='subDivForError'>{data.Error}</h2>
+            <Header />
+            <section className="showcase">
+                <img className='img' src={`https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${props.image}`} alt="Picture" />
+                <div className="overlay">
+                    <div className="App">
+                        {data.Title ?
+                            <div className='mainDiv'>
+                                <div className='subDivForDataL'>
+                                    <pre style={{ fontSize: '2rem',color:'white' }} >
+                                        {data.Title}
+                                    </pre>
+                                    <pre style={{ fontSize: '1.2rem', color: 'white' }} >
+                                        {data.Year} | {data.Rated} | {data.Runtime == "N/A" ? "N/A" : minToHour(data.Runtime.split(" ")[0])}
+                                    </pre>
+                                    <img src={data.Poster} alt="" />
+                                    {data.Ratings.length > 0 && (data.Ratings[0].Value) !== "N/A" &&
+                                        <pre style={{ fontSize: '1.6rem', fontWeight: 'bold',color:'white' }} >
+                                            &#x2B50; {data.Ratings.length > 0 && (data.Ratings[0].Value).split("/")[0]} &nbsp;
+                                            <span>
+                                                /{data.Ratings.length > 0 && (data.Ratings[0].Value).split("/")[1]} |&nbsp;
+                                                {Math.round(parseInt(data.imdbVotes))}K
+                                            </span>
+                                        </pre>}
+                                </div>
+                                <div>
+                                    <Table style={{ width: '80%', fontSize: '5rem', marginLeft: '5rem' }}>
+                                        <TableRow>
+                                            <TableCell style={style.tableHead}>{string.Actors}</TableCell>
+                                            <TableCell style={style.tableData}>{data.Actors}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell style={style.tableHead}>{string.Genre}</TableCell>
+                                            <TableCell style={style.tableData}>{data.Genre}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell style={style.tableHead}>{string.Language}</TableCell>
+                                            <TableCell style={style.tableData}>{data.Language}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell style={style.tableHead}>{string.Director}</TableCell>
+                                            <TableCell style={style.tableData}>{data.Director}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell style={style.tableHead}>{string.Description}</TableCell>
+                                            <TableCell style={style.tableData}>{data.Plot}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell style={style.tableHead}>{string.Trailer}</TableCell>
+                                            <TableCell style={style.tableData}>
+                                                <a href={`https://www.youtube.com/results?search_query=${data.Title}+trailer`} target='_blank' style={{ textDecoration: 'none', color: 'white' }}>{data.Title}</a>
+                                            </TableCell>
+                                        </TableRow>
+                                    </Table>
+                                </div>
+                            </div> :
+                            <div className='subDivForError'>
+                                <img className='img' src={ErrorImage} alt="Error" />
+                                <h2 className='subDivForError'>{data.Error}</h2>
+                            </div>
+                        }
                     </div>
-                }
-            </div>
+                </div>
+            </section>
+
         </>
     );
 }
