@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import movieBG from './movieBG.jpg'
 import { Autocomplete, TextField } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 function SearchBar() {
     const [searchName, setSearchName] = useState("");
+    const [value, setValue] = useState<any>("");
     const [searchingSeq, setSearchingSeq] = useState([]);
 
     useEffect(() => {
@@ -21,8 +23,8 @@ function SearchBar() {
         setSearchName(event.target.value)
     };
 
-    const handleOptionChange = (value: any) => {
-        setSearchName(value)
+    const handleOptionChange = (event:any, value: any) => {
+        setValue(value)
     };
 
     let newOption = [];
@@ -44,9 +46,8 @@ function SearchBar() {
                     style={{display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                     renderInput={(params) => (
                         <>
-                            <SearchIcon />
                             <TextField
-                                label="Search for a movie, tv show....."
+                                label="Search for a movie....."
                                 {...params}
                                 value={searchName}
                                 onChange={handleInputChange}
@@ -54,6 +55,9 @@ function SearchBar() {
                                 style={{ marginLeft: '1rem' }}
                             >
                             </TextField>
+                            <Link to="/search" state={value.label}>
+                            <SearchIcon />
+                            </Link>
                         </>
                     )}
                 />
