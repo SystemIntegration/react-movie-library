@@ -1,14 +1,12 @@
 import React from 'react'
-import Trending from './trending';
-import TrendingTV from './trendingTV';
-import { Header } from './utils';
+import { Header, TrendingPage } from './utils';
 
 function Home() {
   return (
     <>
     <Header />
-     <Trending />
-     <TrendingTV />
+     <TrendingPage value="movie" />
+     <TrendingPage value="tv" />
     </>
   )
 }

@@ -79,6 +79,15 @@ span {
   z-index:999
 }
 
+label span:first-child {
+  margin-bottom: 20px;
+}
+
+label span:nth-child(2) {
+  font-weight: bold;
+  color: gray;
+}
+
 .autoComplete {width: 25%;}
 .autoComplete label {top: -4px; color: white !important;}
 .autoComplete div {height: 45px;}

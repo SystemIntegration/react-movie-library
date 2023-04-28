@@ -4,16 +4,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import logo from './logo.png'
 import { Autocomplete, Table, TableCell, TableRow, TextField } from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { FormControlLabel, Switch } from '@mui/material';
+import { Link } from 'react-router-dom';
 import ErrorImage from './remove.png'
-
-
-export const styles: any = {
-    logoName: {
-        color: 'sandybrown',
-        display: 'block',
-    },
-}
 
 // Method for define style in main screen
 export const style: any = {
@@ -27,6 +21,10 @@ export const style: any = {
         fontFamily: 'Times New Roman', borderBottom: 0,
         fontSize: '1.4rem',
         color:'white'
+    },
+    logoName: {
+        color: 'sandybrown',
+        display: 'block',
     },
 }
 
@@ -69,7 +67,7 @@ export function Header() {
                     <img src={logo} alt="logo" style={{ marginRight: '1rem' }} />
                     <Typography
                         variant="h4"
-                        style={styles.logoName}
+                        style={style.logoName}
                         noWrap
                         component="a"
                         href="/"
@@ -245,4 +243,64 @@ export function MainResults(props: any) {
 
         </>
     );
+}
+
+export function TrendingPage(props:any) {
+  const [value, setValue] = useState(false)
+
+  interface movieData { }
+
+
+  const [data, setData] = useState<movieData[]>([]);
+
+  // Method for get data from searched data
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(`https://api.themoviedb.org/3/${props.value}/popular?api_key=e13ceb6565b27a00321702a3c013911a&language=${value == true ? 'hi' : 'en-US'}&page=1`);
+      const data = await response.json();
+      setData(data.results)
+      // console.log('Datas', data);
+    }
+    fetchData();
+  }, [value]);
+
+  //method for get value for change Hindi -> English or English -> Hindi
+  const getValue = () => {
+    if (value === false) {
+      setValue(true)
+    } else {
+      setValue(false)
+    }
+  }
+  return (
+    <div style={{ margin: '0 1.5rem' }}>
+      <div className='header'>
+        <h2>Trending {props.value}
+          <FormControlLabel style={{ marginLeft: '2rem' }}
+            control={
+              <Switch defaultChecked color="secondary" onClick={() => { getValue() }} />
+            }
+            label={value === true ? "Hindi" : "English"}
+          />
+        </h2>
+      </div>
+      <div className='Scroll' style={{ display: 'flex', overflowX: 'auto' }}>
+        {
+          data.map((data: any) => {
+            return (
+              <div style={{ marginRight: '1rem' }}>
+                <div>
+                  <Link to="/media" state={data}>
+                    <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face${data.poster_path}`} alt="" style={{ width: '10rem', height: '12rem', borderRadius: '10px' }} />
+                  </Link>
+                </div>
+                <div>{props.value === "tv" ? data.name : data.title}</div>
+                <p style={{ color: 'gray' }}>{props.value === "tv" ? data.first_air_date : data.release_date}</p>
+              </div>
+            )
+          })
+        }
+      </div>
+    </div>
+  )
 }
