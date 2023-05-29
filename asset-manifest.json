@@ -1,17 +1,17 @@
 {
-  "files": {
-    "main.css": "/react-movie-library/static/css/main.aeca8a4b.css",
-    "main.js": "/react-movie-library/static/js/main.76b1e7c5.js",
-    "static/js/787.d02d9e27.chunk.js": "/react-movie-library/static/js/787.d02d9e27.chunk.js",
-    "static/media/movieBG.jpg": "/react-movie-library/static/media/movieBG.3c83718adc007efdc3db.jpg",
-    "static/media/remove.png": "/react-movie-library/static/media/remove.e9bfc18719b8ace23fb0.png",
-    "index.html": "/react-movie-library/index.html",
-    "main.aeca8a4b.css.map": "/react-movie-library/static/css/main.aeca8a4b.css.map",
-    "main.76b1e7c5.js.map": "/react-movie-library/static/js/main.76b1e7c5.js.map",
-    "787.d02d9e27.chunk.js.map": "/react-movie-library/static/js/787.d02d9e27.chunk.js.map"
-  },
-  "entrypoints": [
-    "static/css/main.aeca8a4b.css",
-    "static/js/main.76b1e7c5.js"
-  ]
+  "main.css": "/react-movie-library/static/css/main.b942271f.chunk.css",
+  "main.js": "/react-movie-library/static/js/main.c5a52377.chunk.js",
+  "main.js.map": "/react-movie-library/static/js/main.c5a52377.chunk.js.map",
+  "static/js/1.483a0879.chunk.js": "/react-movie-library/static/js/1.483a0879.chunk.js",
+  "static/js/1.483a0879.chunk.js.map": "/react-movie-library/static/js/1.483a0879.chunk.js.map",
+  "static/js/2.cf352fbd.chunk.js": "/react-movie-library/static/js/2.cf352fbd.chunk.js",
+  "static/js/2.cf352fbd.chunk.js.map": "/react-movie-library/static/js/2.cf352fbd.chunk.js.map",
+  "runtime~main.js": "/react-movie-library/static/js/runtime~main.d6af29b6.js",
+  "runtime~main.js.map": "/react-movie-library/static/js/runtime~main.d6af29b6.js.map",
+  "static/media/remove.png": "/react-movie-library/static/media/remove.af084f04.png",
+  "static/media/movieBG.jpg": "/react-movie-library/static/media/movieBG.484a349b.jpg",
+  "static/css/main.b942271f.chunk.css.map": "/react-movie-library/static/css/main.b942271f.chunk.css.map",
+  "index.html": "/react-movie-library/index.html",
+  "precache-manifest.6571eba186f8e82f20fd38345d164972.js": "/react-movie-library/precache-manifest.6571eba186f8e82f20fd38345d164972.js",
+  "service-worker.js": "/react-movie-library/service-worker.js"
 }
